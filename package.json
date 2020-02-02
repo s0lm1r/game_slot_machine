@@ -1,0 +1,23 @@
+{
+  "name": "slot_machine",
+  "version": "1.0.1",
+  "description": "myGame",
+  "main": "main.js",
+  "dependencies": {
+    "pixi.js": "^5.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s0lm1r/game_slot_machine.git"
+  },
+  "author": "Stas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s0lm1r/game_slot_machine/issues"
+  },
+  "homepage": "https://github.com/s0lm1r/game_slot_machine#readme"
+}
