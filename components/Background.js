@@ -5,7 +5,7 @@ export const Background = () => {
     const sprites = [];
     
     for( let i = 0; i <= 6; i++) {
-        const texture = PIXI.Texture.from(Textures[`Background${i}`]);
+        const texture = PIXI.Texture.from(Textures[`background${i}`]);
         const sprite = new PIXI.Sprite(texture);
         container.addChild(sprite);
         sprites.push(sprite);

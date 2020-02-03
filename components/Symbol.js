@@ -9,7 +9,7 @@ export default class Symbol  {
    
     init(id) {
   
-        const texture = PIXI.Texture.from(Textures[`Sym${id}`]);
+        const texture = PIXI.Texture.from(Textures[`sym${id}`]);
         const sprite = new PIXI.Sprite(texture);
         sprite.anchor.set(0.5);
        
