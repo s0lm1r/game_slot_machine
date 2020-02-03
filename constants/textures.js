@@ -1,6 +1,6 @@
 export const Scene = {
-    width: 1280,
-    height: 800
+    width: window.innerWidth,
+    height: window.innerHeight
   };
 
 export const Textures = {
@@ -20,6 +20,8 @@ export const Textures = {
     sym6: `./resurces/symbols/sym6.png`,
 
 };
+
+
 
 
     // for( let i = 0; i <= 6; i++) {

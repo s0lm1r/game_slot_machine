@@ -1,8 +1,10 @@
-import { Scene, Textures } from "../constants/textures.js";
+import {  Textures } from "../constants/textures.js";
 
 export default class Symbol  {
     constructor() {
-        
+        this.symbols = {
+
+        }
         
         
     }
