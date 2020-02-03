@@ -3,6 +3,7 @@ import { Scene, Textures } from "./constants/textures.js";
 import { Background } from "./components/Background.js";
 import Symbol from "./components/Symbol.js";
 
+
 const initGame = () => {
     const canvasEl = getCanvasEl("root");
     canvasEl.height = Scene.height;
