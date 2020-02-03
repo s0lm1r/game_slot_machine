@@ -4,13 +4,13 @@ export const Scene = {
   };
 
 export const Textures = {
-    Background0: `./resurces/Background/Background_0.png`,
-    Background1: `./resurces/Background/Background_1.png`,
-    Background2: `./resurces/Background/Background_2.png`,
-    Background3: `./resurces/Background/Background_3.png`,
-    Background4: `./resurces/Background/Background_4.png`,
-    Background5: `./resurces/Background/Background_5.png`,
-    Background6: `./resurces/Background/Background_6.png`,
+    Background0: `./resurces/background/Background_0.png`,
+    Background1: `./resurces/background/Background_1.png`,
+    Background2: `./resurces/background/Background_2.png`,
+    Background3: `./resurces/background/Background_3.png`,
+    Background4: `./resurces/background/Background_4.png`,
+    Background5: `./resurces/background/Background_5.png`,
+    Background6: `./resurces/background/Background_6.png`,
     Sym0: `./resurces/symbols/sym0.png`,
     Sym1: `./resurces/symbols/sym1.png`,
     Sym2: `./resurces/symbols/sym2.png`,
