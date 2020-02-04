@@ -6,15 +6,14 @@ export default class Reels extends PIXI.Container {
       super()
       this.reels = [];
       this._init();
-      console.log(this.reels);
      
     }
 
     _init() {
         for(let i = 0; i < 3; i++) {
             const reel = new Reel();
-            reel.x = Scene.width / 6 + i * Scene.width / 4;
-            reel.y = 120;
+            reel.x = 400 + i * Scene.width / 6;
+            reel.y = -6090;
             this.reels.push(reel);
             this.addChild(reel) 
         }

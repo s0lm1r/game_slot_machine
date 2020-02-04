@@ -1,27 +1,30 @@
 
 import Symbol from "./Symbol.js";
 import { Scene } from "../constants/textures.js";
+import { randomInteger } from "../framework/randomInteger.js";
 
 export default class Reel extends PIXI.Container {
     constructor() {
-      super()
-      this._init();
-
+      super();
+      
+      this.reelset = [];
+      this._init();  
       
         
     }
     _init() {
-        this.addChild(this.createGraphic())
+        this.createSymbolRow();
     }
 
-    createGraphic() {
-        var graphics = new PIXI.Graphics();
-
-        // Rectangle
-        graphics.beginFill(0xff000f);
-        graphics.drawRect(50, 50, Scene.width/5, Scene.height/2);
-        graphics.endFill();
-
-        return graphics;
+    createSymbolRow() {
+        for(let i = 0; i < 42; i++) {
+            const id = randomInteger(1, 6);
+            const symbol =  new Symbol(id);
+            this.reelset.push(symbol);
+            this.addChild(symbol);
+            symbol.position.set(250, 300 +i * 190);
+        }
+        
     }
+    
 }

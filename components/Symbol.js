@@ -1,21 +1,26 @@
 import {  Textures } from "../constants/textures.js";
 
-export default class Symbol  {
-    constructor() {
-        this.symbols = {
-
-        }
-        
+export default class Symbol extends PIXI.Container {
+    
+    constructor(id) {
+        super()
+        //this.symbols = {};
+        this.createSymbol(id);
         
     }
    
-    init(id) {
-  
-        const texture = PIXI.Texture.from(Textures[`sym${id}`]);
-        const sprite = new PIXI.Sprite(texture);
-        sprite.anchor.set(0.5);
-       
-        return sprite;
+    createSymbol(id) {
+        //if (!this.symbols[`sym${id}`]) {
+            const texture = PIXI.Texture.from(Textures[`sym${id}`]);
+            const sprite = new PIXI.Sprite(texture);
+            sprite.anchor.set(0.5);
+            sprite.scale.set(0.9)
+            this.addChild(sprite)
+           // this.symbols[`sym${id}`].
+            //return sprite;
+        // } 
+     
+        
     }
    
   };
