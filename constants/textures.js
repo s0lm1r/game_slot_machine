@@ -1,10 +1,10 @@
 export const Scene = {
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: 1280/*window.innerWidth*/,
+    height: 800/*window.innerHeight*/
   };
 
 export const Textures = {
-    background0: `./resurces/background/Background_0.png`,
+    background: `./resurces/background/Background_0.png`,
     background1: `./resurces/background/Background_1.png`,
     background2: `./resurces/background/Background_2.png`,
     background3: `./resurces/background/Background_3.png`,
@@ -18,6 +18,9 @@ export const Textures = {
     sym4: `./resurces/symbols/sym4.png`,
     sym5: `./resurces/symbols/sym5.png`,
     sym6: `./resurces/symbols/sym6.png`,
+    sym7: `./resurces/symbols/sym7.png`,
+    sym8: `./resurces/symbols/sym8.png`,
+
 
 };
 

@@ -1,32 +1,40 @@
 import {Scene, Textures } from "../constants/textures.js";
+import { pixiApp} from "../framework/game.js";
 
 export const ReelsFrame = () => {
     const container = new PIXI.Container();
-
-    const sprites = [];
+    const texturesPath = [];
     
-    for( let i = 1; i <= 6; i++) {
-       
-        const texture = PIXI.Texture.from(Textures[`background${i}`]);
-        const sprite = new PIXI.Sprite(texture);
-        if (i!== 1) container.addChild(sprite);
-        sprites.push(sprite);
-        sprite.anchor.set(0.5);
-    };
-    // todo LOADER
+    Object.entries(Textures).filter((el, i) => {
+      
+        if (el[1].includes(`Background_${i}`) && i !== 0) texturesPath.push(el[1]);
     
-    //sprites[0].width = ;
-    //sprites[0].height = Scene.height/2;
-    sprites[0].position.set(0, 150);
-    sprites[1].position.set(-505, 180);
-    sprites[2].position.set(505, 180);
-    sprites[3].position.set(0, -150);
-    //sprites[5].scale.set(1.3)
-    sprites[4].position.set(0, 500);
-    sprites[5].position.set(0, -130);
+    });
    
-    container.pivot.set(-Scene.width/2, -Scene.height/2);
-    container.position.set(0,-100);
+    const sprites = [];
+  
+    pixiApp.loader.add(texturesPath.filter(el => el)).load(onLoaded);
+
+    function onLoaded() {
+      
+        for( let i = 1; i <= 6; i++) {
+           
+            const texture = PIXI.Texture.from(Textures[`background${i}`]);
+            
+            const sprite = new PIXI.Sprite(texture);
+            if (i!== 1) container.addChild(sprite);
+            sprites.push(sprite);
+           // console.log(sprite.width, sprite.height);
+            sprite.anchor.set(0.5);
+        };
+        // todo LOADER
+
+        sprites[1].position.set(-500, 0);
+        sprites[2].position.set(500, 0);
+        sprites[3].position.set(40, -320);
+        sprites[4].position.set(0, 300);
+        sprites[5].position.set(0, -300); 
+    }
    
     return container;
   };

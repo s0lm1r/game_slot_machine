@@ -1,59 +1,85 @@
-import { createPixiApp, getCanvasEl,} from "./framework/game.js";
+import { pixiApp, canvasEl} from "./framework/game.js";
 import { Scene, Textures } from "./constants/textures.js";
 import { Background } from "./components/Background.js";
 import { ReelsFrame } from "./components/ReelsFrame.js";
+import {controler} from "./components/Controler.js";
 //import Symbol from "./components/Symbol.js";
 import Reels from "./components/Reels.js";
+import {config} from "./constants/config.js";
 
 const initGame = () => {
 
-  let _w = window.innerWidth;
-  let _h = window.innerHeight;
+  let _w = Scene.width;
+  let _h = Scene.height;
+  //const isMobile = typeof window.orientation !== 'undefined';
+  //const controler = new Controler();
+  //window.addEventListener('resize', resize);
+ //if (isMobile) reelsFrame.scale.set(0.4);
 
-  window.addEventListener('resize', resize);
-
-  const canvasEl = getCanvasEl("root");
-  canvasEl.height = Scene.height;
-  canvasEl.width = Scene.width;
   const timeLine = gsap.timeline();
-
-  const pixiApp = createPixiApp({
-    view: canvasEl,
-    width: canvasEl.width,
-    height: canvasEl.height,
-  });
-
   const mainContainer = new PIXI.Container();
+
   const background = Background();
   const reels = new Reels();
-   
-  const reelsFrame = ReelsFrame();
+  reels.pivot.set(reels.width/2, reels.height/2);
+  const reelsFrame = ReelsFrame(); 
+  reelsFrame.position.set(_w/2, _h/2 + 50);
+
+  
+  const spinButton = new PIXI.Graphics()
+    .lineStyle(10, 0xFF0000, 1)
+    .beginFill(0x00ff00, 1)
+    .drawCircle(50, 50, 50)
+    .endFill();
+ 
+    spinButton.interactive = true;
+    spinButton.buttonMode = true;
+    spinButton.pivot.set(spinButton.width/2, spinButton.height/2)
+    spinButton.position.set(640, 750);
+    spinButton
+        .on('pointerup', spinStart);
+ 
   const mask = new PIXI.Graphics()
-  .beginFill(0xFF0000)
-  .drawRect(400, 345, 1150, 620)
-  .endFill();
+    .beginFill(0xFF0000)
+    .drawRect(0, 80, 1200, 620)
+    .endFill();
   reels.mask = mask;
-  mainContainer.addChild(background,  reels,reelsFrame, mask);
+  //reelsFrame.scale.set(0.9)
+  reelsFrame.addChild(reels);
+  mainContainer.addChild(background,reelsFrame, /*mask,*/ spinButton);
   pixiApp.stage.addChild(mainContainer);
   pixiApp.renderer.render(pixiApp.stage);  
   pixiApp.ticker.add(delta => loop(delta));
-  //console.log(reels.reels)
 
-  timeLine
-  .add("start")
-  .to(reels.reels[0], 5, {y: 570-380}, "start")
-  .to(reels.reels[1], 5, {y: 380-380}, "start")
-  .to(reels.reels[2], 5, {y: 0- 380}, "start");
   const loop = (delta) => {};
+  
+  function spinStart() {
 
-  function resize() {
-    _w = window.innerWidth;
-    _h = window.innerHeight;
-    canvasEl.height = _h;
-    canvasEl.width = _w;
-    mainContainer.width = _w;
-    mainContainer.height = _h;
+    
+    controler.setData();
+    //console.table(controler.getData());
+    
+    reels.reels.forEach((reel, i) => {
+      reel.createSymbolsRow(i);
+      });
+    //})
+    // timeLine
+    // .add("start")
+    // .to(reels.reels[0], 5, {y: 2000}, "start")
+    // .to(reels.reels[1], 5, {y: 2000}, "start")
+    // .to(reels.reels[2], 5, {y: 2000, onComplete: () => {
+    //   reels.reels.forEach(reel =>  reel.y = -20)
+    // }}, "start");
   };
+
+  // function resize() {
+  //   _w = window.innerWidth;
+  //   _h = window.innerHeight;
+  //   canvasEl.height = _h;
+  //   canvasEl.width = _w;
+  //   mainContainer.width = _w;
+  //   mainContainer.height = _h;
+  // };
 };
   
 initGame();
