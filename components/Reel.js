@@ -21,7 +21,7 @@ export default class Reel extends PIXI.Container {
 
     this.removeChildren();
         //console.log(mainSymbols[reelId]);
-        const mainSymbols = controler.getData();
+        const mainSymbols = controler.getSymbols();
     
         mainSymbols[reelId].forEach((reel, i) => {
                 const symbolData = {};

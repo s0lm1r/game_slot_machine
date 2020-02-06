@@ -3,6 +3,7 @@ import { Scene, Textures } from "./constants/textures.js";
 import { Background } from "./components/Background.js";
 import { ReelsFrame } from "./components/ReelsFrame.js";
 import {controler} from "./components/Controler.js";
+import {balance} from "./components/Balance.js";
 //import Symbol from "./components/Symbol.js";
 import Reels from "./components/Reels.js";
 import {config} from "./constants/config.js";
@@ -20,6 +21,11 @@ const initGame = () => {
   const mainContainer = new PIXI.Container();
 
   const background = Background();
+  // const balance = new Balance('Stas');
+  
+  balance.position.set(900, 720)
+  let totalBalance = config.balance;
+  let bet  = 100;
   const reels = new Reels();
   reels.pivot.set(reels.width/2, reels.height/2);
   const reelsFrame = ReelsFrame(); 
@@ -44,9 +50,9 @@ const initGame = () => {
     .drawRect(0, 80, 1200, 620)
     .endFill();
   reels.mask = mask;
-  //reelsFrame.scale.set(0.9)
+ // reelsFrame.scale.set(0.8)
   reelsFrame.addChild(reels);
-  mainContainer.addChild(background,reelsFrame, /*mask,*/ spinButton);
+  mainContainer.addChild(background,reelsFrame, /*mask,*/ spinButton, balance);
   pixiApp.stage.addChild(mainContainer);
   pixiApp.renderer.render(pixiApp.stage);  
   pixiApp.ticker.add(delta => loop(delta));
@@ -54,14 +60,26 @@ const initGame = () => {
   const loop = (delta) => {};
   
   function spinStart() {
-
-    
-    controler.setData();
-    //console.table(controler.getData());
-    
+    console.clear();
+     if (!controler.checkBalance(totalBalance, bet)) {
+       return;
+     }
+    totalBalance -= bet;
+    balance.changeCash(totalBalance);
+    controler.setSymbols();
+   
     reels.reels.forEach((reel, i) => {
       reel.createSymbolsRow(i);
       });
+    controler.checkWinLines();
+    controler.winLines.forEach((winLine) => {
+      console.log(winLine);
+      totalBalance += winLine.idWinSymbol * bet;
+    });
+    balance.changeCash(totalBalance);
+    //console.log(controler.winLines);
+    
+    
     //})
     // timeLine
     // .add("start")
