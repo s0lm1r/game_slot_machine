@@ -4,9 +4,11 @@ import { Background } from "./components/Background.js";
 import { ReelsFrame } from "./components/ReelsFrame.js";
 import {controler} from "./components/Controler.js";
 import {balance} from "./components/Balance.js";
+import {bet} from "./components/Bet.js";
 //import Symbol from "./components/Symbol.js";
 import Reels from "./components/Reels.js";
 import {config} from "./constants/config.js";
+import Button from "./components/Button.js";
 
 const initGame = () => {
 
@@ -23,27 +25,32 @@ const initGame = () => {
   const background = Background();
   // const balance = new Balance('Stas');
   
-  balance.position.set(900, 720)
+  balance.position.set(900, 720);
+  bet.position.set(200, 720);
   let totalBalance = config.balance;
-  let bet  = 100;
+  
   const reels = new Reels();
   reels.pivot.set(reels.width/2, reels.height/2);
   const reelsFrame = ReelsFrame(); 
   reelsFrame.position.set(_w/2, _h/2 + 50);
 
-  
+  const decreaseBet = new Button(bet.decreaseBetValue.bind(bet));
+  decreaseBet.position.set(420, 750);
+  const increaseBet = new Button(bet.increaseBetValue.bind(bet));
+  increaseBet.position.set(380, 745);
+  increaseBet.rotation = Math.PI;
+  increaseBet.tint = '0x0000ff';
   const spinButton = new PIXI.Graphics()
-    .lineStyle(10, 0xFF0000, 1)
+    .lineStyle(5, 0xFF0000, 1)
     .beginFill(0x00ff00, 1)
-    .drawCircle(50, 50, 50)
+    .drawCircle(35, 35, 35)
     .endFill();
- 
-    spinButton.interactive = true;
-    spinButton.buttonMode = true;
-    spinButton.pivot.set(spinButton.width/2, spinButton.height/2)
-    spinButton.position.set(640, 750);
-    spinButton
-        .on('pointerup', spinStart);
+  spinButton.interactive = true;
+  spinButton.buttonMode = true;
+  spinButton.pivot.set(spinButton.width/2, spinButton.height/2)
+  spinButton.position.set(640, 750);
+  spinButton
+    .on('pointerup', spinStart);
  
   const mask = new PIXI.Graphics()
     .beginFill(0xFF0000)
@@ -52,7 +59,7 @@ const initGame = () => {
   reels.mask = mask;
  // reelsFrame.scale.set(0.8)
   reelsFrame.addChild(reels);
-  mainContainer.addChild(background,reelsFrame, /*mask,*/ spinButton, balance);
+  mainContainer.addChild(background,reelsFrame, /*mask,*/ spinButton, balance , bet, increaseBet, decreaseBet);
   pixiApp.stage.addChild(mainContainer);
   pixiApp.renderer.render(pixiApp.stage);  
   pixiApp.ticker.add(delta => loop(delta));
@@ -60,11 +67,13 @@ const initGame = () => {
   const loop = (delta) => {};
   
   function spinStart() {
-    console.clear();
-     if (!controler.checkBalance(totalBalance, bet)) {
+   console.clear();
+   
+     if (!controler.checkBalance(totalBalance, bet.value)) {
        return;
      }
-    totalBalance -= bet;
+    
+    totalBalance -= bet.value;
     balance.changeCash(totalBalance);
     controler.setSymbols();
    
@@ -74,10 +83,10 @@ const initGame = () => {
     controler.checkWinLines();
     controler.winLines.forEach((winLine) => {
       console.log(winLine);
-      totalBalance += winLine.idWinSymbol * bet;
+      totalBalance += winLine.idWinSymbol * bet.value;
     });
     balance.changeCash(totalBalance);
-    //console.log(controler.winLines);
+ 
     
     
     //})
