@@ -35,11 +35,12 @@ const initGame = () => {
   reelsFrame.position.set(_w/2, _h/2 + 50);
 
   const decreaseBet = new Button(bet.decreaseBetValue.bind(bet));
-  decreaseBet.position.set(420, 750);
+  decreaseBet.position.set(430, 750);
   const increaseBet = new Button(bet.increaseBetValue.bind(bet));
-  increaseBet.position.set(380, 745);
+  increaseBet.position.set(390, 745);
   increaseBet.rotation = Math.PI;
-  increaseBet.tint = '0x0000ff';
+  
+
   const spinButton = new PIXI.Graphics()
     .lineStyle(5, 0xFF0000, 1)
     .beginFill(0x00ff00, 1)
@@ -67,25 +68,42 @@ const initGame = () => {
   const loop = (delta) => {};
   
   function spinStart() {
-   console.clear();
-   
+  
+    console.clear();
+    //console.log();
      if (!controler.checkBalance(totalBalance, bet.value)) {
        return;
      }
     
     totalBalance -= bet.value;
     balance.changeCash(totalBalance);
-    controler.setSymbols();
+    timeLine
+    .add('start')
+    .staggerTo(reels.reels, 1, {y: 500})
+
+    .add(() => {
+      reels.reels.forEach(reel => {
+       // console.log('stas')
+        reel.y = -620});
+      controler.setSymbols();
    
-    reels.reels.forEach((reel, i) => {
-      reel.createSymbolsRow(i);
-      });
-    controler.checkWinLines();
-    controler.winLines.forEach((winLine) => {
-      console.log(winLine);
-      totalBalance += winLine.idWinSymbol * bet.value;
-    });
-    balance.changeCash(totalBalance);
+      reels.reels.forEach((reel, i) => {
+        reel.createSymbolsRow(i);
+        });
+        controler.checkWinLines();
+        controler.winLines.forEach((winLine) => {
+          console.log(winLine);
+          totalBalance += winLine.idWinSymbol * bet.value;
+        });
+       
+    }, "start+=1")
+    .to(reels.reels[0], 0.5, {y: -20}, "start+=1")
+    .to(reels.reels[1], 0.5, {y: -20}, "start+=1.2")
+    .to(reels.reels[2], 0.5, {y: -20}, "start+=1.4")
+    .add(() => balance.changeCash(totalBalance));
+    ;
+    
+    
  
     
     

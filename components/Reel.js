@@ -10,11 +10,17 @@ export default class Reel extends PIXI.Container {
       super();
       this.reelId = reelId;
       this.reelset = [];
+      this.fakeReelsSet = config.fakeReelsSet;
       this._init();
+      
     }
 
     _init() {
         this.createSymbolsRow(this.reelId);
+    }
+
+    createFakeReelSet() {
+        const fakeSymbolData = {};
     }
 
     createSymbolsRow(reelId) {

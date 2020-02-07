@@ -9,7 +9,7 @@ class Bet extends PIXI.Text{
     }
 
     increaseBetValue() {
-        if (!config.bet.includes(config.bet[this.valueId + 1 ])) {
+        if (!config.bet.includes(config.bet[this.valueId + 1])) {
             // todo tint
             return;
         }

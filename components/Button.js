@@ -5,20 +5,20 @@ export default class Button  extends PIXI.Container {
         this.interactive = true;
         this.buttonMode = true;
         this.on('pointerup', callback);
-        this.pivot.set(this.width/2, this.height/2);
-       
-        
+        this.pivot.set(this.width/ 2, this.height/2);
+        this.shape.tint = "0x00ff00";
+    
     }
 
     _createTriangle() {
         const side = 20;
         const graphics = new PIXI.Graphics()   
             .lineStyle(2, 0xFF0000, 1)
-            .beginFill(0x00ff00, 1)
+            .beginFill(0xffffff, 1)
             .drawPolygon([
                 0, 0,
-                2*side, 0,
-                side, 2*side,
+                2 * side, 0,
+                side, 2 * side,
                 0, 0
             ])
             .endFill();
@@ -26,9 +26,15 @@ export default class Button  extends PIXI.Container {
         return graphics;
     }
 
-    _enable() {
-        this.tint = "0x00000f";
+    doDisable() {
+        this.shape.tint = "0x7f7f7f";
     }
+
+    doEnable() {
+        this.shape.tint = "0x00ff00";
+    }
+
+
 }
 
 

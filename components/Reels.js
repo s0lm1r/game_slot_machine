@@ -6,8 +6,6 @@ export default class Reels extends PIXI.Container {
       super()
       this.reels = [];
       this._init();
-      
-     
     }
 
     _init() {
@@ -19,7 +17,4 @@ export default class Reels extends PIXI.Container {
             this.addChild(reel) 
         }
     }
-
-
-    
 }
