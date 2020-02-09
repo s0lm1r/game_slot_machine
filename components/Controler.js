@@ -5,7 +5,6 @@ import { randomInteger } from "../framework/randomInteger.js";
 class Controler{
     constructor() {
         this.mainSymbols = config.mainSymbols;
-        console.log('stas')
         this.winLineData = [];
     }
 

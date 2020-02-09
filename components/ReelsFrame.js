@@ -31,9 +31,11 @@ export const ReelsFrame = () => {
 
         sprites[1].position.set(-500, 0);
         sprites[2].position.set(500, 0);
-        sprites[3].position.set(40, -320);
+        sprites[3].position.set(40, -300);
+        
         sprites[4].position.set(0, 300);
-        sprites[5].position.set(0, -300); 
+        sprites[5].position.set(0, -280); 
+        sprites[5].scale.set(1.1)
     }
    
     return container;

@@ -5,7 +5,7 @@ export default class Button  extends PIXI.Container {
         this.interactive = true;
         this.buttonMode = true;
         this.on('pointerup', callback);
-        this.pivot.set(this.width/ 2, this.height/2);
+        this.pivot.set(this.width / 2, this.height/2);
         this.shape.tint = "0x00ff00";
     
     }
