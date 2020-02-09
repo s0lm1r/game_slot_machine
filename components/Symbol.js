@@ -9,7 +9,7 @@ export default class Symbol extends PIXI.Container {
    
     createSymbol(id, isFake) {
         
-        if(isFake) console.log('fake');
+       // if(isFake) console.log('fake');
             const texture = PIXI.Texture.from(Textures[`sym${id}`]);
             const sprite = new PIXI.Sprite(texture);
             sprite.anchor.set(0.5);

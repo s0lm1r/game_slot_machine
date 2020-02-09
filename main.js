@@ -9,6 +9,8 @@ import {bet} from "./components/Bet.js";
 import Reels from "./components/Reels.js";
 import {config} from "./constants/config.js";
 import Button from "./components/Button.js";
+import {counter} from "./components/Counter.js";
+// import gsap from "gsap";
 
 const initGame = () => {
 
@@ -20,10 +22,11 @@ const initGame = () => {
  //if (isMobile) reelsFrame.scale.set(0.4);
 
   const timeLine = gsap.timeline();
+  const counterTl = gsap.timeline();
   const mainContainer = new PIXI.Container();
 
   const background = Background();
-  // const balance = new Balance('Stas');
+  
   
   balance.position.set(900, 720);
   bet.position.set(200, 720);
@@ -32,6 +35,9 @@ const initGame = () => {
   const reels = new Reels();
  // reels.alpha = 0.4;
   const fakeReels = new Reels(true);
+  const filters = new PIXI.filters.BlurFilter();
+  
+ // fakeReels.reels[.filters.filters;
   fakeReels.pivot.set(reels.width/2, 0);
   reels.pivot.set(reels.width/2, reels.height/2);
   const reelsFrame = ReelsFrame(); 
@@ -80,11 +86,10 @@ let click = false;
       reel.y += 3;
     })
   };
-  
+  let isSpined = false;
   function spinStart() {
-     //click = !false;
-    //console.clear();
-    
+     
+    if (isSpined) return;
      if (!controler.checkBalance(totalBalance, bet.value)) {
        return;
      }
@@ -96,14 +101,19 @@ let click = false;
     reels.reels.forEach((reel, i) => {  
       reel.createNewSymbolsRow(i);
     });
-    const time = 1.3 + config.fakeReelsSet.length/6;
+    const time = 1.3 + config.fakeReelsSet.length/6 ;
+    const pointTomove = (config.fakeReelsSet.length + 1)* 170 - 20;
+    const easing = {ease: Back.easeInOut.config(0.3)};
+    
     timeLine
     .add('start')
-    .to(reels.reels[0], time, {y: 340 + (config.fakeReelsSet.length+ 1)* 170 -20})
-    .to(reels.reels[1], time+0.5, {y:  340 + (config.fakeReelsSet.length+ 1)* 170 -20}, "start")
-    .to(reels.reels[2], time+1, {y: 340+ (config.fakeReelsSet.length+ 1)* 170 -20, onComplete: () => {
+    .add(() => {
+      isSpined = true;
+    })
+    .to(reels.reels[0], time, {ease: easing.ease, y: 340 + pointTomove})
+    .to(reels.reels[1], time+0.8, {ease: easing.ease, y:  340 + pointTomove}, "start")
+    .to(reels.reels[2], time+1.6, {ease: easing.ease, y: 340+ pointTomove, onComplete: () => {
       reels.reels.forEach(reel => {
-      
         const newSymbols = reel.reelset.splice(3, 3);
         reel.removeChildren();
         newSymbols.reverse().map((symbol, i) => {  
@@ -112,22 +122,28 @@ let click = false;
         reel.y = -20;
       });
     }}, "start")
-    .to(fakeReels.reels[0], time, {y: (config.fakeReelsSet.length+ 1)* 170 -20}, "start")
-    .to(fakeReels.reels[1], time+0.5, {y:  (config.fakeReelsSet.length+ 1)* 170 -20}, "start")
-    .to(fakeReels.reels[2], time+1, {y:  (config.fakeReelsSet.length+ 1)* 170 -20, onComplete: () => {
+    .add(() => fakeReels.reels[0].filters = [filters], "start+=3")
+    .add(() => fakeReels.reels[1].filters = [filters], "start+=3.8")
+    .add(() => fakeReels.reels[2].filters = [filters], "start+=4.6")
+    .add(() => fakeReels.reels[0].filters = null, "start+=4.5")
+    .add(() => fakeReels.reels[1].filters = null, "start+=5.3")
+    .add(() => fakeReels.reels[2].filters = null, "start+=6.1")
+    .to(fakeReels.reels[0], time, {ease: easing.ease, y: pointTomove}, "start")
+    .to(fakeReels.reels[1], time+0.8, {ease: easing.ease, y: pointTomove}, "start")
+    .to(fakeReels.reels[2], time+1.6, {ease: easing.ease, y: pointTomove, onComplete: () => {
       fakeReels.reels.forEach(reel => reel.y = -360);
-    }}, "start")
-         controler.checkWinLines();
-          controler.winLines.forEach((winLine) => {
-          console.log(winLine);
-          totalBalance += winLine.idWinSymbol * bet.value;
-        });
-       
-    // }, "start+=1")
-
-    balance.changeCash(totalBalance);
-  
+      controler.checkWinLines();
+      controler.winLineData.forEach(winLine => { 
+        totalBalance += winLine.idWinSymbol * bet.value});
+      balance.changeCash(totalBalance)
+      isSpined = false;
+      timeLine.kill();
+    }}, "start");
+ 
+    
   };
+
+
 
   // function resize() {
   //   _w = window.innerWidth;

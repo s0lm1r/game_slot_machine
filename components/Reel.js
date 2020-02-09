@@ -23,7 +23,8 @@ export default class Reel extends PIXI.Container {
     createFakeReelSet(reelId) {
         const fakeSymbolData = {};
         config.fakeReelsSet.forEach((id, i) => {
-            fakeSymbolData.id = randomInteger(1,6);
+            fakeSymbolData.id = randomInteger(1,3);
+          //  console.log(fakeSymbolData.id);
     fakeSymbolData.position = {x: 0, y: -170 * i };
     fakeSymbolData.symbol =  new Symbol(fakeSymbolData.id, true);
     this.fakeReelsSet.push(fakeSymbolData);
