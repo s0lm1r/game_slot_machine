@@ -68,8 +68,10 @@ const initGame = () => {
     if (isSpined) return;
     isSpined = true;
     const curBet = bet.value;
-      if (!controler.checkBalance(totalBalance, curBet)) return;
-    
+      if (!controler.checkBalance(totalBalance, curBet)) {
+        isSpined = false;
+        return;
+      };
     totalBalance -= curBet;
     balance.changeCash(totalBalance);
     totalWin = 0;
