@@ -23,11 +23,26 @@ constructor(callback, isSpinButton) {
       .endFill();
   }
   _createSpinButton() {
-    return new PIXI.Graphics()  
+      const spin = new PIXI.Graphics()  
     .lineStyle(5, 0x00ff00, 1)
     .beginFill(0xff0000, 1)
-    .drawCircle(35, 35, 35)
+    .drawCircle(50, 50, 50)
     .endFill();
+    const text = new PIXI.Text('Spin', {
+      fontSize: 28,
+      fontStyle: 'italic',
+      fontWeight: 'bold',
+      fill: ['#00ff00', '#ffff00'],
+      stroke: '#4a1850',
+      strokeThickness: 2,
+      wordWrap: true,
+      wordWrapWidth: 440
+    });
+
+    text.pivot.set(text.width / 2, text.height / 2);
+    text.position.set(spin.width / 2 - 3, spin.height / 2 - 5);
+    spin.addChild(text)
+    return spin
   }
 }
 
