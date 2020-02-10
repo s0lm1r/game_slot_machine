@@ -47,7 +47,6 @@ export const ReelsFrame = () => {
     fill: ['#fce903'],
     stroke: '#4a1850',
     strokeThickness: 4,
-  
     wordWrap: true,
     wordWrapWidth: 440
   };
@@ -58,9 +57,6 @@ export const ReelsFrame = () => {
     fontStyle: 'italic',
     fontWeight: 'bold',
     fill: ['#fce903'],
- 
-  
- 
     wordWrap: true,
     wordWrapWidth: 440
   };

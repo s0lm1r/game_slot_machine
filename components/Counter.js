@@ -28,7 +28,7 @@ Counter.STYLE = {
   fontSize: 80,
   fontStyle: 'italic',
   fontWeight: 'bold',
-  fill: ['#1fd0ff', '#ffff99'], // gradient
+  fill: ['#1fd0ff', '#ffff99'],
   stroke: '#4a1850',
   strokeThickness: 5,
   dropShadow: true,

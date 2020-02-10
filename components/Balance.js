@@ -16,7 +16,7 @@ Balance.STYLE = {
   fontSize: 36,
   fontStyle: 'italic',
   fontWeight: 'bold',
-  fill: ['#ffffff', '#00ff99'], // gradient
+  fill: ['#ffffff', '#00ff99'],
   stroke: '#4a1850',
   strokeThickness: 5,
   dropShadow: true,
