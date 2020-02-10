@@ -1,7 +1,6 @@
 import { config } from "../constants/config.js";
 import { randomInteger } from "../framework/randomInteger.js";
 
-
 class Controler{
     constructor() {
         this.mainSymbols = config.mainSymbols;
@@ -19,13 +18,10 @@ class Controler{
 
     
     checkWinLines() {
-        // const lines = Object.entries(config.lines);
-         //console.log(this.mainSymbols[0])
+
         this.winLineData = [];
-        
         this.mainSymbols.forEach((row, i) => {
             if (row.every((el) => el === row[0])) {
-               // console.log(`line ${i + 1} win! symol: ${row[0]}`);
                this.winLineData.push({
                     [`winLine`]: i + 1,
                     [`idWinSymbol`]: row[0]
@@ -34,7 +30,7 @@ class Controler{
         })
     }
 
-    checkBalance (balance, bet) {
+    checkBalance(balance, bet) {
         if (balance >= bet) {
             return true;
         } else {

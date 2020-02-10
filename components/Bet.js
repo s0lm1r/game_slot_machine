@@ -5,12 +5,10 @@ class Bet extends PIXI.Text{
         super(value)
         this.style = new PIXI.TextStyle(Bet.STYLE);
         this.valueId = 3;
-        
     }
 
     increaseBetValue() {
         if (!config.bet.includes(config.bet[this.valueId + 1])) {
-            // todo tint
             return;
         }
         this.valueId++;
@@ -48,5 +46,3 @@ Bet.STYLE = {
 };
 
 export const bet = new Bet(`Bet: ${config.bet[3]}`);
-
-     //this.tint = '0xfff00f';
